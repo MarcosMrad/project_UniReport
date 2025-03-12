@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_ocorrencias")
-public class Ocorrencias implements Serializable{
+public class Ocorrencia implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,10 +32,10 @@ public class Ocorrencias implements Serializable{
 	private Instant atualizadoEm;
 	
 	
-	public Ocorrencias() {}
+	public Ocorrencia() {}
 
 
-	public Ocorrencias(Long id, String bloco, String sala, String problemas, List<String> imagens,
+	public Ocorrencia(Long id, String bloco, String sala, String problemas, List<String> imagens,
 			Boolean status, String resolucao, Instant criadoEm, Instant atualizadoEm) {
 		super();
 		this.id = id;
@@ -154,7 +154,7 @@ public class Ocorrencias implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ocorrencias other = (Ocorrencias) obj;
+		Ocorrencia other = (Ocorrencia) obj;
 		return Objects.equals(id, other.id);
 	}
 	
