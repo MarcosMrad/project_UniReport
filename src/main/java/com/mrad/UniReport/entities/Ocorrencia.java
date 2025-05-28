@@ -30,6 +30,7 @@ public class Ocorrencia implements Serializable{
 	private String resolucao;
 	private Instant criadoEm;
 	private Instant atualizadoEm;
+	private User atualizadoPor;
 	
 	
 	public Ocorrencia() {}
@@ -138,6 +139,11 @@ public class Ocorrencia implements Serializable{
 	public void setAtualizadoEm(Instant atualizadoEm) {
 		this.atualizadoEm = atualizadoEm;
 	}
+	
+	public User getAtualizadoPor() {
+		return atualizadoPor;
+	}
+	
 
 
 	@Override
@@ -157,6 +163,8 @@ public class Ocorrencia implements Serializable{
 		Ocorrencia other = (Ocorrencia) obj;
 		return Objects.equals(id, other.id);
 	}
+
+
 	
 	
 	

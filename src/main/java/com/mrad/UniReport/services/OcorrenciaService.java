@@ -23,5 +23,9 @@ public class OcorrenciaService {
 		Optional<Ocorrencia> ocorrencia =  repository.findById(id);
 		return ocorrencia.get();
 	}
+	
+	public Ocorrencia insert(Ocorrencia obj) {
+		return repository.save(obj);
+	}
 
 }
