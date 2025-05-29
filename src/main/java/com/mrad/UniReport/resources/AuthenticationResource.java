@@ -14,6 +14,7 @@ import com.mrad.UniReport.entities.User;
 import com.mrad.UniReport.entities.DTOS.AuthenticationDTO;
 import com.mrad.UniReport.entities.DTOS.RegisterDTO;
 import com.mrad.UniReport.repositories.UserRepository;
+import com.mrad.UniReport.security.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -27,13 +28,17 @@ public class AuthenticationResource {
 	@Autowired
 	private UserRepository repository;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	
 	@PostMapping(value = "/login")
 	public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
 		var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
 		var auth = this.authenticationManager.authenticate(usernamePassword);
+		var token = tokenService.generateToken((User)auth.getPrincipal());
 		
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(token);
 	}
 	
 	@PostMapping(value = "/register")
