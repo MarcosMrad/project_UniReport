@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.mrad.UniReport.entities.Localizacao;
 import com.mrad.UniReport.entities.Ocorrencia;
 import com.mrad.UniReport.entities.User;
+import com.mrad.UniReport.entities.enums.UserRole;
 import com.mrad.UniReport.repositories.OcorrenciaRepository;
-import com.mrad.UniReport.repositories.userRepository;
+import com.mrad.UniReport.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
@@ -24,7 +26,7 @@ public class TestConfig implements CommandLineRunner{
 	private OcorrenciaRepository ocorrenciaRepository;
 	
 	@Autowired
-	private userRepository userRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -34,10 +36,10 @@ public class TestConfig implements CommandLineRunner{
 		
 		ocorrenciaRepository.saveAll(Arrays.asList(o1));
 		
-		User u1 = new User(null, "Marcos Mrad", "marcos@mrad.com", "123456");
-		User u2 = new User(null, "Rebeca ", "rebeca@mail.com", "123456");
+		User u1 = new User(null, "Marcos Mrad", "marcos@mrad.com", new BCryptPasswordEncoder().encode("123456"), UserRole.ADMIN);
+		User u2 = new User(null, "Rebeca ", "rebeca@mail.com", new BCryptPasswordEncoder().encode("123456"), UserRole.USER);
 		
-		userRepository.saveAll(Arrays.asList(u1));
+		userRepository.saveAll(Arrays.asList(u1,u2));
 	
 		
 	}

@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mrad.UniReport.entities.User;
-import com.mrad.UniReport.repositories.userRepository;
+import com.mrad.UniReport.repositories.UserRepository;
 
 @Service
 public class UserService {
 	@Autowired
-	private userRepository repository;
+	private UserRepository repository;
 	
 	public List<User> findAll(){
 		return repository.findAll();
