@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mrad.UniReport.entities.Ocorrencia;
 import com.mrad.UniReport.entities.User;
+import com.mrad.UniReport.entities.DTOS.LocalizacaoSummaryDTO;
 import com.mrad.UniReport.entities.DTOS.OcorrenciaRequestDTO;
 import com.mrad.UniReport.entities.DTOS.OcorrenciaResponseDTO;
 import com.mrad.UniReport.entities.DTOS.OcorrenciaUpdateDTO;
@@ -43,10 +44,14 @@ public class OcorrenciaResource {
                 ocorrencia.getAtualizadoPor().getName()
             );
         }
+            LocalizacaoSummaryDTO localizacaoSummary = new LocalizacaoSummaryDTO(
+            	ocorrencia.getLocalizacao().getBloco(),
+                ocorrencia.getLocalizacao().getSala()
+            );
+ 
         return new OcorrenciaResponseDTO(
             ocorrencia.getId(),
-            ocorrencia.getBloco(),
-            ocorrencia.getSala(),
+            localizacaoSummary,
             ocorrencia.getProblemas(),
             ocorrencia.getImagens(),
             ocorrencia.getStatus(),
@@ -77,8 +82,7 @@ public class OcorrenciaResource {
 	@PostMapping
 	public ResponseEntity<OcorrenciaResponseDTO> insert(@Valid @RequestBody OcorrenciaRequestDTO dto) {
         Ocorrencia ocorrencia = new Ocorrencia();
-        ocorrencia.setBloco(dto.bloco());
-        ocorrencia.setSala(dto.sala());
+        ocorrencia.setLocalizacao(dto.localizacao());
         ocorrencia.setProblemas(dto.problemas());
         ocorrencia.setImagens(dto.imagens() != null ? dto.imagens() : new ArrayList<>());
         ocorrencia.setStatus(false); 

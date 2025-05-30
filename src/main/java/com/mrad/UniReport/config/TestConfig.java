@@ -15,6 +15,7 @@ import com.mrad.UniReport.entities.Localizacao;
 import com.mrad.UniReport.entities.Ocorrencia;
 import com.mrad.UniReport.entities.User;
 import com.mrad.UniReport.entities.enums.UserRole;
+import com.mrad.UniReport.repositories.LocalizacaoRepository;
 import com.mrad.UniReport.repositories.OcorrenciaRepository;
 import com.mrad.UniReport.repositories.UserRepository;
 
@@ -27,13 +28,17 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private LocalizacaoRepository localizacaoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-		Localizacao l1 = new Localizacao(1L, "B", "304", "testqrcode/");
+		Localizacao l1 = new Localizacao(null, "B", "304", "testqrcode/");
 		List<String> imgs = new ArrayList<>();
-		Ocorrencia o1 = new Ocorrencia(null , l1.getBloco(), l1.getSala(), "Lampada queimada", imgs, false, "a", Instant.parse("2019-06-20T19:53:07Z"), Instant.parse("2019-06-20T19:53:07Z"));
+		Ocorrencia o1 = new Ocorrencia(null , l1, "Lampada queimada", imgs, false, "a", Instant.parse("2019-06-20T19:53:07Z"), Instant.parse("2019-06-20T19:53:07Z"));
 		
+		localizacaoRepository.saveAll(Arrays.asList(l1));
 		ocorrenciaRepository.saveAll(Arrays.asList(o1));
 		
 		User u1 = new User(null, "Marcos Mrad", "marcos@mrad.com", new BCryptPasswordEncoder().encode("123456"), UserRole.ADMIN);

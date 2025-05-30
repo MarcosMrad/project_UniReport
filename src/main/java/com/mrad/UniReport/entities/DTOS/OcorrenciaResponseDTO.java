@@ -3,10 +3,11 @@ package com.mrad.UniReport.entities.DTOS;
 import java.time.Instant;
 import java.util.List;
 
+import com.mrad.UniReport.entities.Localizacao;
+
 public record OcorrenciaResponseDTO(
 	    Long id,
-	    String bloco,
-	    String sala,
+	    LocalizacaoSummaryDTO localizacao,
 	    String problemas,
 	    List<String> imagens,
 	    Boolean status,

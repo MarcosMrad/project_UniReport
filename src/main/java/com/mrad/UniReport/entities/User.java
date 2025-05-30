@@ -35,7 +35,6 @@ public class User implements Serializable, UserDetails{
 	private String password;
 	private UserRole role;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "atualizadoPor")
 	private List<Ocorrencia> ocorrencias = new ArrayList<>();
 	

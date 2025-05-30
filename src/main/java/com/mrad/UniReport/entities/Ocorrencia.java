@@ -27,8 +27,9 @@ public class Ocorrencia implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String bloco;
-	private String sala;
+	@ManyToOne
+	@JoinColumn(name = "localizacao_id")
+	private Localizacao localizacao;
 	
 	private String problemas;
 	private List<String> imagens = new ArrayList<>();
@@ -45,12 +46,11 @@ public class Ocorrencia implements Serializable{
 	public Ocorrencia() {}
 
 
-	public Ocorrencia(Long id, String bloco, String sala, String problemas, List<String> imagens,
+	public Ocorrencia(Long id,Localizacao localizacao, String problemas, List<String> imagens,
 			Boolean status, String resolucao, Instant criadoEm, Instant atualizadoEm) {
 		super();
 		this.id = id;
-		this.bloco = bloco;
-		this.sala = sala;
+		this.localizacao = localizacao;
 		this.problemas = problemas;
 		this.imagens = imagens;
 		this.status = status;
@@ -69,24 +69,13 @@ public class Ocorrencia implements Serializable{
 		this.id = id;
 	}
 
-
-	public String getBloco() {
-		return bloco;
+	public Localizacao getLocalizacao() {
+		return localizacao;
 	}
 
 
-	public void setBloco(String bloco) {
-		this.bloco = bloco;
-	}
-
-
-	public String getSala() {
-		return sala;
-	}
-
-
-	public void setSala(String sala) {
-		this.sala = sala;
+	public void setLocalizacao(Localizacao localizacao) {
+		this.localizacao = localizacao;
 	}
 
 

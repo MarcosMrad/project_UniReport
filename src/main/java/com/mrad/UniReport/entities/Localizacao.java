@@ -1,12 +1,15 @@
 package com.mrad.UniReport.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +23,9 @@ public class Localizacao implements Serializable{
 	private String bloco;
 	private String sala;
 	private String qrCode;
+	
+	@OneToMany(mappedBy = "localizacao")
+	private List<Ocorrencia> ocorrencias = new ArrayList<>();
 	
 	public Localizacao() {}
 
@@ -61,6 +67,14 @@ public class Localizacao implements Serializable{
 
 	public void setQrCode(String qrCode) {
 		this.qrCode = qrCode;
+	}
+	
+	public List<Ocorrencia> getOcorrencias() {
+		return ocorrencias;
+	}
+
+	public void setOcorrencias(List<Ocorrencia> ocorrencias) {
+		this.ocorrencias = ocorrencias;
 	}
 
 	@Override
