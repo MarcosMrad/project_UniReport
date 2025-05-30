@@ -10,12 +10,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mrad.UniReport.entities.enums.UserRole;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +34,9 @@ public class User implements Serializable, UserDetails{
 	private String email;
 	private String password;
 	private UserRole role;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "atualizadoPor")
 	private List<Ocorrencia> ocorrencias = new ArrayList<>();
 	
 	public User() {}

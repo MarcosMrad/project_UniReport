@@ -6,10 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +36,9 @@ public class Ocorrencia implements Serializable{
 	private String resolucao;
 	private Instant criadoEm;
 	private Instant atualizadoEm;
+	
+	@ManyToOne
+	@JoinColumn(name = "atualizadoPor_id")
 	private User atualizadoPor;
 	
 	
@@ -143,7 +152,10 @@ public class Ocorrencia implements Serializable{
 	public User getAtualizadoPor() {
 		return atualizadoPor;
 	}
-	
+
+	public void setAtualizadoPor(User atualizadoPor) {
+		this.atualizadoPor = atualizadoPor;
+	}
 
 
 	@Override

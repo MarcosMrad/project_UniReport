@@ -1,5 +1,6 @@
 package com.mrad.UniReport.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mrad.UniReport.entities.Ocorrencia;
+import com.mrad.UniReport.entities.User;
+import com.mrad.UniReport.entities.DTOS.OcorrenciaResponseDTO;
+import com.mrad.UniReport.entities.DTOS.OcorrenciaUpdateDTO;
 import com.mrad.UniReport.repositories.OcorrenciaRepository;
 import com.mrad.UniReport.services.exceptions.ResourceNotFoundException;
 
@@ -29,10 +33,10 @@ public class OcorrenciaService {
 		return repository.save(obj);
 	}
 	
-	public Ocorrencia update(Long id, Ocorrencia obj) {
+	public Ocorrencia update(Long id, OcorrenciaUpdateDTO dto, User user) {
 		try {
-			Ocorrencia entity = repository.getReferenceById(id);
-			updateDate(entity, obj);
+			Ocorrencia entity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Ocorrencia não encontrada com o ID: " + id));
+			updateDate(entity, dto, user);
 			return repository.save(entity);
 			}
 			catch(ResourceNotFoundException e) {
@@ -40,11 +44,11 @@ public class OcorrenciaService {
 			}
 	}
 	
-	private void updateDate(Ocorrencia entity, Ocorrencia obj) {
-		entity.setStatus(obj.getStatus());
-		entity.setResolucao(obj.getResolucao());
-		entity.setAtualizadoEm(obj.getAtualizadoEm());
-		
+	private void updateDate(Ocorrencia entity, OcorrenciaUpdateDTO dto, User user) {
+		entity.setStatus(dto.status());
+		entity.setResolucao(dto.resolucao());
+		entity.setAtualizadoEm(Instant.now());
+		entity.setAtualizadoPor(user);
 	}
 	
 }
