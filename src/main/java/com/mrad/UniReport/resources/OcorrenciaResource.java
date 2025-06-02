@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -100,4 +101,14 @@ public class OcorrenciaResource {
 		Ocorrencia ocorrenciaAtualizada = service.update(id, dto, user);
 		return ResponseEntity.ok().body(toResponseDTO(ocorrenciaAtualizada));
 }
+	
+	@GetMapping(params = "bloco")
+	public ResponseEntity<List<OcorrenciaResponseDTO>> findByBloco (@RequestParam String bloco){
+		List<Ocorrencia> list = service.findByBloco(bloco);
+		List<OcorrenciaResponseDTO> listDTO = list.stream()
+				.map(this::toResponseDTO)
+				.collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
 }

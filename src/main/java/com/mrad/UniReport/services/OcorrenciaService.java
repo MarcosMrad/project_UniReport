@@ -50,4 +50,8 @@ public class OcorrenciaService {
 		entity.setAtualizadoPor(user);
 	}
 	
+	public List<Ocorrencia> findByBloco(String bloco){
+		return repository.findByBloco(bloco);
+	}
+	
 }
