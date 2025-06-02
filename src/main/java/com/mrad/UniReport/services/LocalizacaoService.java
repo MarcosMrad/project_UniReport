@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mrad.UniReport.entities.Localizacao;
 import com.mrad.UniReport.repositories.LocalizacaoRepository;
+import com.mrad.UniReport.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class LocalizacaoService {
@@ -20,8 +21,7 @@ public class LocalizacaoService {
 	}
 	
 	public Localizacao findById(Long id) {
-		Optional<Localizacao> obj = repository.findById(id);
-		return obj.get();
+		return repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Localização não encontrada com o ID " + id));
 	}
 	
 	public Localizacao insert(Localizacao obj) {
