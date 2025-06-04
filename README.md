@@ -111,8 +111,7 @@ A seguir, alguns dos principais endpoints disponíveis.
         ```json
         {
             "bloco": "C",
-            "sala": "101",
-            "qrCode": "endereço_do_qrcode"
+            "sala": "101"
         }
         ```
 
