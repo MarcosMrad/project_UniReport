@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class Localizacao implements Serializable{
 	private Long id;
 	private String bloco;
 	private String sala;
+	@Column(columnDefinition = "TEXT")
 	private String qrCode;
 	
 	@OneToMany(mappedBy = "localizacao")

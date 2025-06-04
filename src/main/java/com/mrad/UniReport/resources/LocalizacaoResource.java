@@ -70,7 +70,6 @@ public class LocalizacaoResource {
 		Localizacao localizacao = new Localizacao();
 		localizacao.setBloco(dto.bloco());
 		localizacao.setSala(dto.sala());
-		localizacao.setQrCode(dto.qrCode());
 		
 		Localizacao novaLocalizacao = service.insert(localizacao);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novaLocalizacao.getId()).toUri();
